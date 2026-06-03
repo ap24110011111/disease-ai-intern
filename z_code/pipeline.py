@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 RANDOM_SEED = 42
-df = pd.read_csv("../data/diabetes.csv")
+df = pd.read_csv("data/diabetes.csv")
 zero_columns = [
     "Glucose",
     "BloodPressure",
