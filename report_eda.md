@@ -66,3 +66,8 @@ The dataset contains approximately 35% diabetic cases and 65% non-diabetic cases
 
 ## Conclusion:
 The exploratory data analysis provided an understanding of the dataset structure, class distribution, and feature behavior. The identified data quality issues and class imbalance considerations will guide the preprocessing and model development stages.
+
+
+
+## Model Comparison
+Among all four models, Support Vector Machine (SVM) achieved the highest F1-score. The F1-score balances precision and recall, making it an important metric for diabetes prediction. SVM was able to identify diabetic cases effectively while maintaining a low number of misclassifications. Compared to Logistic Regression, Random Forest, and MLP, SVM provided the most balanced performance, resulting in the best overall F1-score on the dataset.
