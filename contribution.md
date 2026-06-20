@@ -1,0 +1,3 @@
+# Contribution Discussion
+
+Our system differs from prior work because it focuses on proactive disease detection using an adaptive machine learning pipeline that can continuously improve with new patient data. Unlike traditional static models that are trained once and remain unchanged, our approach emphasizes adaptability, regular model updates, and comparison of multiple machine learning algorithms to maintain performance over time. We also aim to improve interpretability, scalability, and real-world applicability, making the system more suitable for practical healthcare environments where patient conditions and data distributions may change.
