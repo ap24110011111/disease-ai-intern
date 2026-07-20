@@ -1,45 +1,31 @@
 # Error Analysis
 
 ## Objective
-The objective of this analysis is to evaluate the prediction performance of the Adaptive Neural Network on the Chronic Kidney Disease (CKD) dataset and investigate the misclassified samples.
+This analysis examines the misclassifications produced by the proposed disease detection framework, covering both the primary Pima Diabetes system and the CKD validation check, to identify patterns in the errors and inform the project's Limitations discussion.
 
 ## Methodology
-The trained Adaptive Neural Network was evaluated using the held-out test dataset. Predicted labels were compared with the actual class labels to identify:
+Predictions from the trained models were compared against ground-truth labels on their respective held-out test sets. Misclassified samples were separated into False Positives (FP) and False Negatives (FN) for each dataset.
 
-- False Positives (FP)
-- False Negatives (FN)
+## Pima Diabetes — Adaptive + Proactive Detection System
+- Evaluated across 5 rolling windows (Windows 3–7)
+- Total false negatives: 27
+- Per-window accuracy and F1 scores available in `results/week5/proactive_results.csv`. A confusion matrix for this system is not currently saved — the false negative counts above come from row-level predictions extracted directly from the model's output.
 
-The confusion matrix and classification metrics were used to assess the model performance.
+**Observations:** Most false negatives were not simple borderline cases — several missed patients had clearly elevated glucose readings. A number of missed cases also had missing (zero-value) Insulin readings, which are not currently imputed in preprocessing. Errors were not evenly distributed across time windows; more occurred in earlier windows than later ones.
 
-## Results
-- Total Test Samples: 80
+**Clinical significance:** False negatives are more costly than false positives in a screening context — a missed diabetic patient risks delayed treatment, while a false positive typically leads only to an extra test.
+
+## CKD Validation Check
+- Total test samples: 80
 - False Positives: 1
 - False Negatives: 1
+- Accuracy: 97.5%
+- Confusion matrix: `[[49, 1], [1, 29]]`
 
-The confusion matrix was:
-
-```
-[[49  1]
- [ 1 29]]
-```
-
-## Observations
-The Adaptive Neural Network correctly classified 78 out of 80 test samples, achieving an overall accuracy of 97.5%.
-One CKD patient was incorrectly classified as non-CKD (False Negative), while one healthy patient was incorrectly classified as CKD (False Positive).
-The false negative represents a clinically important case because the patient may not receive timely diagnosis and treatment. The false positive may result in additional diagnostic tests, but it is generally less critical than missing a true CKD patient.
-Overall, the small number of prediction errors indicates that the model generalizes well on the CKD dataset while maintaining high sensitivity and specificity.
+**Observations:** Very few errors occurred overall. This is consistent with the CKD dataset's known properties — several of its features (e.g., specific gravity, hemoglobin, serum creatinine) are themselves close to clinical diagnostic markers for the condition, making the dataset easier to separate than Pima Diabetes. Near-perfect performance here reflects the nature of the dataset rather than a claim of general model superiority.
 
 ## Discussion
-The misclassified samples likely represent borderline clinical cases with feature values that overlap between CKD and non-CKD patients. Such cases are naturally more difficult to classify accurately.
-Possible reasons for these prediction errors include:
-- Mild or early-stage CKD with less distinctive clinical characteristics.
-- Overlapping laboratory measurements between healthy and CKD patients.
-- Limited dataset size.
-- Natural variability in patient clinical measurements.
-
-## Clinical Significance
-Accurate detection of CKD is essential because delayed diagnosis may result in disease progression and reduced treatment effectiveness.
-Although the proposed Adaptive Neural Network achieved excellent predictive performance, the presence of one false negative highlights the importance of further improving model sensitivity for clinical applications.
+Across both datasets, errors are more informative on Pima, where the larger number of misclassifications makes patterns identifiable. The CKD errors are too few to draw a pattern from, but the low count is expected and explainable given the dataset's characteristics rather than indicating leakage or an unusually strong model.
 
 ## Conclusion
-The proposed Adaptive Neural Network demonstrated strong generalization performance on the CKD dataset with an accuracy of 97.5% and only two misclassified samples. The low number of prediction errors indicates that the model is robust and reliable for CKD prediction. Future work should evaluate the model on larger and more diverse clinical datasets and investigate explainable AI techniques to better understand difficult prediction cases.
+The framework's main limitations are visible in the Pima results — a tendency to miss clearly elevated cases, likely worsened by unimputed missing values and by higher error rates when trained on limited history. The CKD check performed well, consistent with the dataset being inherently easier to classify. Future work should focus on improving imputation and window training history for the Pima system, since that is the primary contribution of this project.
