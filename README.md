@@ -3,6 +3,7 @@
 
 An 8-week research internship project exploring whether a machine learning model can adapt to new patient data over time, and whether it can be pushed toward flagging disease risk earlier rather than just classifying it after the fact.
 
+Built and evaluated on the Pima Indians Diabetes Dataset. 
 **Mentor:** Dr. Ch. Anil Carie, SRM University–AP
 
 **Team:**
@@ -37,6 +38,7 @@ Baseline classifiers (Logistic Regression, SVM, Random Forest, MLP) were built f
 
 Random Forest has the strongest balance of accuracy, F1, and AUC among the baselines. Logistic Regression posts the highest AUC despite a lower F1, suggesting it separates the classes reasonably well but isn't the sharpest at the default decision threshold.
 
+
 ### Adaptive and proactive framework — ablation study (week 5)
 
 | Configuration | Precision | Recall | F1 Score |
@@ -45,15 +47,16 @@ Random Forest has the strongest balance of accuracy, F1, and AUC among the basel
 | Adaptive MLP | 0.7000 | 0.6100 | 0.6500 |
 | Adaptive + Proactive | 0.7400 | 0.6600 | 0.6900 |
 
-Every metric improves at each stage — Adaptive MLP beats the static baseline, and Adaptive + Proactive beats both, gaining on precision, recall, and F1 simultaneously. 
+Every metric improves at each stage — Adaptive MLP beats the static baseline, and Adaptive + Proactive beats both, gaining on precision, recall, and F1 simultaneously. [CONFIRM: worth double-checking there's no data overlap between the static/adaptive/proactive evaluation batches — an across-the-board win like this is a stronger result than the usual precision/recall trade-off, so it's worth being sure it holds up.]
+
 
 ## Repository structure
 
 ```
 disease-ai-intern/
-├── data/            # [describe: raw]
-├── figures/          # Plots and visualizations
-├── md/               # Related work, contribution statement, error analysis, limitations
+├── data/              # raw
+├── figures/           # Plots and visualizations
+├── md/                # Related work, contribution statement, error analysis, limitations
 ├── notebooks/
 │   ├── week 1/
 │   ├── week 2/        # Baseline model training/evaluation
@@ -70,19 +73,7 @@ disease-ai-intern/
 │   ├── week 2/        # results_log.csv — baseline metrics
 │   ├── week 3/
 │   ├── week 4/
-│   ├── week5/          # ablation_results.csv — adaptive/proactive comparison
+│   ├── week5/         # ablation_results.csv — adaptive/proactive comparison
 │   └── week6/
-├── z_code/            
+├── z_code/
 └── .gitignore
-```
-
-
-## Running this yourself
-
-```bash
-git clone https://github.com/ap24110011111/disease-ai-intern.git
-cd disease-ai-intern
-pip install -r requirements.txt   
-jupyter notebook
-```
-
